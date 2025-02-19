@@ -31,25 +31,32 @@ class CartController extends Controller
         $carts = collect(session('carts'));
         if ($carts->isEmpty())
             return redirect()->route('cart');
-        $validateData = $request->validate([
+        $validate = [
             "name" => ['required', 'max:20'],
             "email" => ['required', 'max:20', 'email'],
             "phone" => ['required', 'max:11', 'min:10'],
             "address" => ['required', 'max:255'],
             "payment" => ['required', 'in:COD']
-        ], [
+        ];
+        //tạo khách nếu có
+        if ($request->is_create) {
+            $validate['passwork'] = ['required', 'max:20', 'min:6'];
+        }
+        if ($request->shipto) {
+            $validate['ship_name'] = ['required', 'max:20'];
+            $validate['ship_phone'] = ['required', 'max:11', 'min:10'];
+            $validate['ship_email'] = ['required', 'max:20', 'email'];
+            $validate['ship_address'] = ['required', 'max:255'];
+        }
+        $validateData = $request->validate($validate, [
             "name.required" => "name không được để trống"
         ]);
-        //tạo khách nếu có
-        // if($request->is_create) {
-        //     $customer = Customer::create();
-        //     if($request->shipto) {
+        $customer = Customer::create($validateData);
 
-        //     }
-        // }
+
         $fillable = $validateData;
         $fillable['code'] = rand(100000, 999999);
-
+        $fillable['customer_id'] = $customer->id;
         $order = Order::create($fillable);
         $total_amount = 0;
         foreach ($carts as $item) {
@@ -69,17 +76,22 @@ class CartController extends Controller
         $order->total_amount = $total_amount + ($total_amount * 0.1);
         $order->save();
         session(['carts' => []]);
-        // dd($order, $carts);
-        return redirect()->route('completed')->with([
-            'ordered' => $order,
-        ]);
+        // dd($order, $carts, session('carts'));
+        // dd(session('carts'));
+        // dd($order);
+        if ($order) {
+            return redirect()->route('completed')->with([
+                'ordered' => $order,
+            ]);
+        }
     }
 
     public function completed()
     {
         $ordered = session('ordered');
-        // $carts = session('infor');
-        // dd($ordered, $carts);
+        // $cartsItem = session('cartsItem');
+        dd($ordered);
+
         if (!$ordered)
             return redirect()->route('cart');
         return view('front.pages.completed', ['ordered' => $ordered]);
@@ -114,7 +126,6 @@ class CartController extends Controller
     public function deleteItem(Request $request, $id)
     {
         $carts = session('carts');
-        dd($carts);
         if (isset($carts[$id])) {
             unset($carts[$id]);
         }

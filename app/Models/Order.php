@@ -9,6 +9,7 @@ class Order extends Model
 
     protected $fillable = [
         'code',
+        'customer_id'
         // Thêm các trường khác nếu cần
     ];
 

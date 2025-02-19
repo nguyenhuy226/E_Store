@@ -16,8 +16,6 @@ class Customer extends Model
         'ship_address',
         'ship_phone',
         'ship_email'
-
-
         // Thêm các trường khác nếu cần
     ];
     public function orders()

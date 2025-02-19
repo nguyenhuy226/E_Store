@@ -59,22 +59,25 @@
                                     <div class="col-md-12">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="newaccount"
-                                                name="is_create" value=1
+                                                name="is_create" value=1 {{ old('is_create') ? 'checked' : '' }}
                                                 onchange="if(this.checked){$('#create_panel').removeClass('d-none');}else{$('#create_panel').addClass('d-none');}">
                                             <label class="custom-control-label" for="newaccount">Create an account?</label>
                                         </div>
-                                        <div class="col-md-12 d-none" id="create_panel">
+                                        <div class="col-md-12 {{ old('is_create') ? '' : 'd-none' }}" id="create_panel">
                                             <p>Enter the password for your account or log in above to use member features
                                             </p>
                                             <label>Passwork</label>
                                             <input class="form-control" type="password" placeholder="Passwork"
                                                 name="passwork">
+                                            @error('passwork')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="shipto"
-                                                value="1" name="shipto">
+                                                value="1" name="shipto" {{ old('shipto') ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="shipto">Ship to different
                                                 address</label>
                                         </div>
@@ -82,26 +85,38 @@
                                 </div>
                             </div>
 
-                            <div class="shipping-address">
+                            <div class="shipping-address" style="display: {{ old('shipto') ? 'block' : 'none' }};">
                                 <h2>Shipping Address</h2>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Name</label>
                                         <input class="form-control" type="text" placeholder="Name" name="ship_name">
+                                        @error('ship_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label>E-mail</label>
                                         <input class="form-control" type="text" placeholder="E-mail" name="ship_email">
+                                        @error('ship_email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label>Mobile No</label>
                                         <input class="form-control" type="text" placeholder="Mobile No"
                                             name="ship_phone">
+                                        @error('ship_phone')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label>Address</label>
                                         <input class="form-control" type="text" placeholder="Address"
                                             name="ship_address">
+                                        @error('ship_address')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -190,8 +205,8 @@
                                     </div> --}}
                                     <div class="payment-method">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="payment-5" name="payment"
-                                                value="COD">
+                                            <input type="radio" class="custom-control-input" id="payment-5"
+                                                name="payment" value="COD">
                                             <label class="custom-control-label" for="payment-5">Cash on
                                                 Delivery</label><br>
                                             @error('payment')

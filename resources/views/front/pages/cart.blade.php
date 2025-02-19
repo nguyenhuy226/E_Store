@@ -71,10 +71,19 @@
                                                         </div>
                                                     </td>
                                                     <td>{{ number_format($item->price * $item->buy_qty) }}</td>
-                                                    <td><button><a {
-                                                        {onclick="return confirm('Bạn có muốn xóa item này không')"}}
-                                                                href="{{ route('delete-item-cart', $item->id) }}"
-                                                                class="text-white"><i class="fa fa-trash"></i></a></button>
+                                                    <td>
+                                                        {{-- <a onclick="return confirm('Bạn có muốn xóa item này không');"
+                                                            href="{{ route('delete-cart', $item->id) }}"
+                                                            class="text-white">
+                                                            <button>
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </a> --}}
+                                                        <a class="text-white btn" style="background-color: #ff6f61;"
+                                                            onclick="return confirm('Bạn có muốn xóa item này không');"
+                                                            href="{{ route('delete-item-cart', $item->id) }}">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -82,7 +91,7 @@
                                     </table>
                                 </div>
                             </form>
-                        </div>
+                        </div>  
 
                         <div class="cart-summary mb-4">
                             <div class="cart-btn d-flex justify-content-end">
