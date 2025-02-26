@@ -8,13 +8,14 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Throwable;
 
 class CartController extends Controller
 {
     public function index()
     {
         $collection = collect(session('carts'));
-        // dd($collection);
         return view('front.pages.cart', ['collection' => $collection]);
     }
 
@@ -29,25 +30,30 @@ class CartController extends Controller
     public function orderPost(Request $request)
     {
         $carts = collect(session('carts'));
-        if ($carts->isEmpty())
+        if ($carts->isEmpty()) {
             return redirect()->route('cart');
+        }
+
         $validate = [
             "name" => ['required', 'max:20'],
-            "email" => ['required', 'max:20', 'email'],
+            "email" => ['required', 'max:255', 'email'],
             "phone" => ['required', 'max:11', 'min:10'],
             "address" => ['required', 'max:255'],
             "payment" => ['required', 'in:COD']
         ];
+
         //tạo khách nếu có
         if ($request->is_create) {
             $validate['passwork'] = ['required', 'max:20', 'min:6'];
         }
+
         if ($request->shipto) {
             $validate['ship_name'] = ['required', 'max:20'];
             $validate['ship_phone'] = ['required', 'max:11', 'min:10'];
-            $validate['ship_email'] = ['required', 'max:20', 'email'];
+            $validate['ship_email'] = ['required', 'max:255', 'email'];
             $validate['ship_address'] = ['required', 'max:255'];
         }
+
         $validateData = $request->validate($validate, [
             "name.required" => "name không được để trống"
         ]);
@@ -71,17 +77,30 @@ class CartController extends Controller
         }
 
         // làm thông báo
-        $order->status = 1;
+        $order->status = Order::JUST_ORDERED;
         $order->created_date = now();
         $order->total_amount = $total_amount + ($total_amount * 0.1);
         $order->save();
         session(['carts' => []]);
-        // dd($order, $carts, session('carts'));
-        // dd(session('carts'));
-        // dd($order);
+
+        try {
+            // Mail::raw($request->content,function ($message)use($request) {
+            //     $message->to($request->email);
+            //     $message->subject($request->title);
+            // });
+
+            Mail::send('front.components.order-mail', ['order' => $order], function ($message) use ($order) {
+                $message->to($order->email);
+                $message->subject($order->name);
+            });
+        } catch (Throwable $e) {
+            //
+        }
+
         if ($order) {
             return redirect()->route('completed')->with([
                 'ordered' => $order,
+                'carts' => $carts
             ]);
         }
     }
@@ -89,12 +108,15 @@ class CartController extends Controller
     public function completed()
     {
         $ordered = session('ordered');
-        // $cartsItem = session('cartsItem');
-        dd($ordered);
-
-        if (!$ordered)
+        $carts = session('carts');
+        if (!$ordered) {
             return redirect()->route('cart');
-        return view('front.pages.completed', ['ordered' => $ordered]);
+        }
+
+        return view('front.pages.completed', [
+            'ordered' => $ordered,
+            'carts' => $carts
+        ]);
     }
 
     public function addItem(Request $request, $id)

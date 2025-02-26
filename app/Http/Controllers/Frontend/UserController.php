@@ -14,6 +14,7 @@ class UserController extends Controller
     public function contact()
     {
         return view('front.pages.contact');
+        // return view('front.pages.testmail');
     }
     public function logout()
     {

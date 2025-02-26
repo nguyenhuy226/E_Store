@@ -66,7 +66,7 @@
 
                         @foreach ($productsList as $product)
                             <div class="col-md-4">
-                                @include('front.componets.product-item', [
+                                @include('front.components.product-item', [
                                     'product' => $product,
                                 ])
                             </div>

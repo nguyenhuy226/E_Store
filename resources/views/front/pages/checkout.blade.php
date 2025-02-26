@@ -26,7 +26,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Name</label>
-                                        <input class="form-control @error('email') border-danger @enderror" type="text"
+                                        <input class="form-control @error('name') border-danger @enderror" type="text"
                                             placeholder="Name" name="name">
                                         @error('name')
                                             <span class="text-danger">{{ $message }}</span>
@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label>Mobile No</label>
-                                        <input class="form-control @error('email') border-danger @enderror" type="text"
+                                        <input class="form-control @error('phone') border-danger @enderror" type="text"
                                             placeholder="Mobile No" name="phone">
                                         @error('phone')
                                             <span class="text-danger">{{ $message }}</span>
@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label>Address</label>
-                                        <input class="form-control @error('email') border-danger @enderror" type="text"
+                                        <input class="form-control @error('address') border-danger @enderror" type="text"
                                             placeholder="Address" name="address">
                                         @error('address')
                                             <span class="text-danger">{{ $message }}</span>

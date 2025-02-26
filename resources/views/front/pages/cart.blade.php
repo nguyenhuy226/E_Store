@@ -91,7 +91,7 @@
                                     </table>
                                 </div>
                             </form>
-                        </div>  
+                        </div>
 
                         <div class="cart-summary mb-4">
                             <div class="cart-btn d-flex justify-content-end">

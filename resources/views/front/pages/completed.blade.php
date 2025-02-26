@@ -24,12 +24,15 @@
                             <p>Mã đơn hàng: <span>{{ $ordered->code }}</span></p>
                             <p>Trạng thái: <span>{{ $ordered->status_label }}</span></p>
                             <p>Ngày đặt: <span>{{ $ordered->created_date }}</span></p>
-                            {{-- @php
+                            @php
+                                // dd($carts);
                                 $subtotal = 0;
+                                $i = 1;
                             @endphp
-                            @foreach ($carts->items as $item)
+                            <p class="sub-total fw-bold">products<span></span></p>
+                            @foreach ($carts as $item)
                                 @php
-                                    $subtotal += $item->price * $item->qty;
+                                    $subtotal += $item->price * $item->buy_qty;
                                 @endphp
                                 <p>{{ $i++ }}.
                                     {{ $item->name }}<span>{{ number_format($item->price * $item->buy_qty) }}</span>
@@ -41,7 +44,7 @@
                             @endphp
                             <p class="sub-total">Sub Total<span>{{ number_format($subtotal) }}</span></p>
                             <p class="ship-cost">VAT(10%)<span>{{ number_format($vat) }}</span></p>
-                            <h2>Grand Total<span>{{ number_format($total) }}</span></h2> --}}
+                            <h2>Grand Total<span>{{ number_format($total) }}</span></h2>
                         </div>
                     </div>
                 </div>

@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    const JUST_ORDERED = 1;
+    const CONFIRMED = 2;
 
     protected $fillable = [
         'code',
-        'customer_id'
+        'customer_id',
+        'name',
+        'email'
         // Thêm các trường khác nếu cần
     ];
 
@@ -23,7 +27,7 @@ class Order extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function getstatusLabelAttribute()
+    public function getStatusLabelAttribute()
     {
         switch ($this->status) {
             case 1:

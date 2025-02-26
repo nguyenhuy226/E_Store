@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
+
 
 class HomeController extends Controller
 {
@@ -12,5 +12,6 @@ class HomeController extends Controller
     {
         // $list = DB::table('products')->get();
         return view('front.pages.index');
+        // return view('front.pages.testmail');
     }
 }
