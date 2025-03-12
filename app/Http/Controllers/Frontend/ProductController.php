@@ -12,9 +12,12 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $categories = Category::whereNull('deleted_at')->get();
         $list = Product::where('is_active', 1)->orderBy('price', 'desc')->paginate(9);
+
         return view('front.pages.products', [
             'productsList' => $list,
+            'categories' => $categories
         ]);
     }
     public function detail(Request $request, $id)
@@ -25,6 +28,7 @@ class ProductController extends Controller
         }
         $relates = Product::where(['is_active' => 1])->where('id', '!=', $id)->take(5)->orderByRaw('rand() ASC')->get();
         $categories = Category::whereNull('deleted_at')->get();
+
         return view('front.pages.product-detail', ['item' => $item, 'relates' => $relates, 'categories' => $categories]);
     }
     public function wishlist()

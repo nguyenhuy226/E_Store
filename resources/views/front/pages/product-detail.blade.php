@@ -49,11 +49,11 @@
                                         <i class="fa fa-star"></i>
                                     </div>
                                     <div class="price">
-                                        <h4>Price:</h4>
+                                        <h4>{{ __('productdetail.price') }}:</h4>
                                         <p>{{ $item->price }} <span>$149</span></p>
                                     </div>
                                     <div class="quantity">
-                                        <h4>Quantity:</h4>
+                                        <h4>{{ __('productdetail.quantity') }}:</h4>
                                         <div class="qty">
                                             <button class="btn-minus"><i class="fa fa-minus"></i></button>
                                             <input type="text" value="1">
@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="p-size">
-                                        <h4>Size:</h4>
+                                        <h4>{{ __('productdetail.size') }}:</h4>
                                         <div class="btn-group btn-group-sm">
                                             <button type="button" class="btn">S</button>
                                             <button type="button" class="btn">M</button>
@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
                                     <div class="p-color">
-                                        <h4>Color:</h4>
+                                        <h4>{{ __('productdetail.color') }}:</h4>
                                         <div class="btn-group btn-group-sm">
                                             <button type="button" class="btn">White</button>
                                             <button type="button" class="btn">Black</button>
@@ -79,10 +79,11 @@
                                     </div>
                                     <div class="action">
                                         <a class="btn" href="{{ route('add-to-cart', $item->id) }}"><i
-                                                class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                        <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Buy Now</a>
+                                                class="fa fa-shopping-cart"></i>{{ __('productdetail.cart') }}</a>
+                                        <a class="btn" href="#"><i
+                                                class="fa fa-shopping-bag"></i>{{ __('productdetail.buy') }}</a>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -91,25 +92,28 @@
                         <div class="col-lg-12">
                             <ul class="nav nav-pills nav-justified">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="pill" href="#description">Description</a>
+                                    <a class="nav-link active" data-toggle="pill"
+                                        href="#description">{{ __('productdetail.des') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#specification">Specification</a>
+                                    <a class="nav-link" data-toggle="pill"
+                                        href="#specification">{{ __('productdetail.specification') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#reviews">Reviews (1)</a>
+                                    <a class="nav-link" data-toggle="pill"
+                                        href="#reviews">{{ __('productdetail.reviews') }} (1)</a>
                                 </li>
                             </ul>
 
                             <div class="tab-content">
                                 <div id="description" class="container tab-pane active">
-                                    <h4>Product description</h4>
+                                    <h4>{{ __('productdetail.des') }}</h4>
                                     <p>
                                         {{ $item->description }}
                                     </p>
                                 </div>
                                 <div id="specification" class="container tab-pane fade">
-                                    <h4>Product specification</h4>
+                                    <h4>{{ __('productdetail.specification') }} </h4>
                                     <ul>
                                         <li>Lorem ipsum dolor sit amet</li>
                                         <li>Lorem ipsum dolor sit amet</li>
@@ -164,13 +168,16 @@
                     @if ($relates->isNotEmpty())
                         <div class="product">
                             <div class="section-header">
-                                <h1>Related Products</h1>
+                                <h1>{{ __('productdetail.related') }}</h1>
                             </div>
 
                             <div class="row align-items-center product-slider product-slider-3">
                                 @foreach ($relates as $relate)
                                     <div class="col-lg-3">
-                                        @include('front.componets.product-item', [
+                                        {{-- @include('front.components.product-item', [
+                                            'product' => $relate,
+                                        ]) --}}
+                                        @include('front.components.product-item', [
                                             'product' => $relate,
                                         ])
                                     </div>
@@ -183,7 +190,7 @@
                 <!-- Side Bar Start -->
                 <div class="col-lg-4 sidebar">
                     <div class="sidebar-widget category">
-                        <h2 class="title">Category</h2>
+                        <h2 class="title">{{ __('productdetail.category') }}</h2>
                         <nav class="navbar bg-light">
                             <ul class="navbar-nav">
                                 @foreach ($categories as $category)
@@ -199,7 +206,10 @@
                     <div class="sidebar-widget widget-slider">
                         <div class="sidebar-slider normal-slider">
                             @foreach ($relates as $relate)
-                                @include('front.componets.product-item', [
+                                {{-- @include('front.componets.product-item', [
+                                    'product' => $relate,
+                                ]) --}}
+                                @include('front.components.product-item', [
                                     'product' => $relate,
                                 ])
                             @endforeach
@@ -207,7 +217,7 @@
                     </div>
 
                     <div class="sidebar-widget brands">
-                        <h2 class="title">Our Brands</h2>
+                        <h2 class="title">{{ __('product.brands') }}</h2>
                         <ul>
                             <li><a href="#">Nulla </a><span>(45)</span></li>
                             <li><a href="#">Curabitur </a><span>(34)</span></li>
@@ -219,7 +229,7 @@
                     </div>
 
                     <div class="sidebar-widget tag">
-                        <h2 class="title">Tags Cloud</h2>
+                        <h2 class="title">{{ __('product.tag') }}</h2>
                         <a href="#">Lorem ipsum</a>
                         <a href="#">Vivamus</a>
                         <a href="#">Phasellus</a>
@@ -244,12 +254,12 @@
     <div class="brand">
         <div class="container-fluid">
             <div class="brand-slider">
-                <div class="brand-item"><img src="img/brand-1.png" alt=""></div>
-                <div class="brand-item"><img src="img/brand-2.png" alt=""></div>
-                <div class="brand-item"><img src="img/brand-3.png" alt=""></div>
-                <div class="brand-item"><img src="img/brand-4.png" alt=""></div>
-                <div class="brand-item"><img src="img/brand-5.png" alt=""></div>
-                <div class="brand-item"><img src="img/brand-6.png" alt=""></div>
+                <div class="brand-item"><img src="{{ asset('front/img/brand-1.png') }}" alt=""></div>
+                <div class="brand-item"><img src="{{ asset('front/img/brand-2.png') }}" alt=""></div>
+                <div class="brand-item"><img src="{{ asset('front/img/brand-3.png') }}" alt=""></div>
+                <div class="brand-item"><img src="{{ asset('front/img/brand-4.png') }}" alt=""></div>
+                <div class="brand-item"><img src="{{ asset('front/img/brand-5.png') }}" alt=""></div>
+                <div class="brand-item"><img src="{{ asset('front/img/brand-6.png') }}" alt=""></div>
             </div>
         </div>
     </div>

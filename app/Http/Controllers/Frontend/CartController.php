@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
 
@@ -43,9 +44,6 @@ class CartController extends Controller
         ];
 
         //tạo khách nếu có
-        if ($request->is_create) {
-            $validate['passwork'] = ['required', 'max:20', 'min:6'];
-        }
 
         if ($request->shipto) {
             $validate['ship_name'] = ['required', 'max:20'];
@@ -53,16 +51,18 @@ class CartController extends Controller
             $validate['ship_email'] = ['required', 'max:255', 'email'];
             $validate['ship_address'] = ['required', 'max:255'];
         }
+        if ($request->is_create) {
+            $validate['password'] = ['required', 'max:20', 'min:6'];
+            $validateData = $request->validate($validate);
+            $validateData['password'] = Hash::make($request->password);
+            $customer = Customer::create($validateData);
+        }
 
-        $validateData = $request->validate($validate, [
-            "name.required" => "name không được để trống"
-        ]);
-        $customer = Customer::create($validateData);
 
 
-        $fillable = $validateData;
+        $fillable = $request->validate($validate);
         $fillable['code'] = rand(100000, 999999);
-        $fillable['customer_id'] = $customer->id;
+        $fillable['customer_id'] = $customer->id ?? 126;
         $order = Order::create($fillable);
         $total_amount = 0;
         foreach ($carts as $item) {

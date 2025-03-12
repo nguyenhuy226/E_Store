@@ -5,9 +5,9 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Products</a></li>
-                <li class="breadcrumb-item active">Product List</li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('menu.home') }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('products') }}">{{ __('menu.product') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('product.list') }}</li>
             </ul>
         </div>
     </div>
@@ -31,11 +31,12 @@
                                     <div class="col-md-4">
                                         <div class="product-short">
                                             <div class="dropdown">
-                                                <div class="dropdown-toggle" data-toggle="dropdown">Product short by</div>
+                                                <div class="dropdown-toggle" data-toggle="dropdown">
+                                                    {{ __('product.Productshortby') }}</div>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item">Newest</a>
-                                                    <a href="#" class="dropdown-item">Popular</a>
-                                                    <a href="#" class="dropdown-item">Most sale</a>
+                                                    <a href="#" class="dropdown-item">{{ __('product.newest') }}</a>
+                                                    <a href="#" class="dropdown-item">{{ __('product.popular') }}</a>
+                                                    <a href="#" class="dropdown-item">{{ __('product.mostsale') }}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -43,7 +44,8 @@
                                     <div class="col-md-4">
                                         <div class="product-price-range">
                                             <div class="dropdown">
-                                                <div class="dropdown-toggle" data-toggle="dropdown">Product price range
+                                                <div class="dropdown-toggle" data-toggle="dropdown">
+                                                    {{ __('product.price') }}
                                                 </div>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a href="#" class="dropdown-item">$0 to $50</a>
@@ -78,13 +80,13 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                    <a class="page-link" href="#" tabindex="-1">{{ __('product.previous') }}</a>
                                 </li>
                                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
+                                    <a class="page-link" href="#">{{ __('product.next') }}</a>
                                 </li>
                             </ul>
                         </nav>
@@ -95,28 +97,15 @@
                 <!-- Side Bar Start -->
                 <div class="col-lg-4 sidebar">
                     <div class="sidebar-widget category">
-                        <h2 class="title">Category</h2>
+                        <h2 class="title">{{ __('product.category') }}</h2>
                         <nav class="navbar bg-light">
                             <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="navấ-link" href="#"><i class="fa fa-female"></i>Fashion & Beauty</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-child"></i>Kids & Babies
-                                        Clothes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Men & Women
-                                        Clothes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gadgets &
-                                        Accessories</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Electronics &
-                                        Accessories</a>
-                                </li>
+                                @foreach ($categories as $category)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i
+                                                class="{{ $category->description }}"></i>{{ $category->name }} </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </nav>
                     </div>
@@ -205,7 +194,7 @@
                     </div>
 
                     <div class="sidebar-widget brands">
-                        <h2 class="title">Our Brands</h2>
+                        <h2 class="title">{{ __('product.brands') }}</h2>
                         <ul>
                             <li><a href="#">Nulla </a><span>(45)</span></li>
                             <li><a href="#">Curabitur </a><span>(34)</span></li>
@@ -217,7 +206,7 @@
                     </div>
 
                     <div class="sidebar-widget tag">
-                        <h2 class="title">Tags Cloud</h2>
+                        <h2 class="title">{{ __('product.tag') }}</h2>
                         <a href="#">Lorem ipsum</a>
                         <a href="#">Vivamus</a>
                         <a href="#">Phasellus</a>

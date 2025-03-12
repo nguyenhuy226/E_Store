@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class OrderDetail extends Model
+class OrderDetail extends Pivot
 {
     protected $table = 'orderdetails';
     protected $fillable = [

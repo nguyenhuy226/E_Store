@@ -835,7 +835,7 @@
                                                                         style="padding:0;Margin:0;padding-top:10px">
                                                                         <h3 class="es-m-txt-l"
                                                                             style="Margin:0;font-family:arial, 'helvetica neue', helvetica, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:19px;font-style:normal;font-weight:normal;line-height:22.8px;color:#FF6F61">
-                                                                            <strong>Sports Menu</strong>
+                                                                            <strong>{{$item->name}}</strong>
                                                                         </h3>
                                                                     </td>
                                                                 </tr>

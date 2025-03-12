@@ -14,7 +14,9 @@
     </div>
 </div>
 <!-- Top bar End -->
-
+@php
+    $collection = collect(session('carts'));
+@endphp
 <!-- Nav Bar Start -->
 <div class="nav">
     <div class="container-fluid">
@@ -27,32 +29,47 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
                     <a href="{{ route('home') }}"
-                        class="nav-item nav-link {{ Request::routeIs('home') ? 'active' : '' }}">Home</a>
+                        class="nav-item nav-link {{ Request::routeIs('home') ? 'active' : '' }}">@lang('menu.home')</a>
                     <a href="{{ route('products') }}"
-                        class="nav-item nav-link {{ Request::routeIs('products') ? 'active' : '' }}">Products</a>
+                        class="nav-item nav-link {{ Request::routeIs('products') ? 'active' : '' }}">{{ __('menu.product') }}</a>
                     <a href="{{ route('cart') }}"
-                        class="nav-item nav-link {{ Request::routeIs('cart') ? 'active' : '' }}">Cart</a>
+                        class="nav-item nav-link {{ Request::routeIs('cart') ? 'active' : '' }}">{{ __('menu.cart') }}</a>
                     <a href="{{ route('checkout') }}"
-                        class="nav-item nav-link {{ Request::routeIs('checkout') ? 'active' : '' }}">Checkout</a>
+                        class="nav-item nav-link {{ Request::routeIs('checkout') ? 'active' : '' }}">{{ __('menu.checkout') }}</a>
                     <a href="{{ route('my-account') }}"
-                        class="nav-item nav-link {{ Request::routeIs('my-account') ? 'active' : '' }}">My Account</a>
+                        class="nav-item nav-link {{ Request::routeIs('my-account') ? 'active' : '' }}">{{ __('menu.myaccount') }}</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle"
+                            data-toggle="dropdown">{{ __('menu.morepages') }}</a>
                         <div class="dropdown-menu">
-                            <a href="{{ route('wishlist') }}" class="dropdown-item">Wishlist</a>
-                            <a href="{{ route('login') }}" class="dropdown-item">Login & Register</a>
-                            <a href="{{ route('contact') }}" class="dropdown-item">Contact Us</a>
+                            <a href="{{ route('wishlist') }}" class="dropdown-item">{{ __('menu.wishlist') }}</a>
+                            <a href="{{ route('login') }}" class="dropdown-item">{{ __('menu.login') }}</a>
+                            <a href="{{ route('contact') }}" class="dropdown-item">{{ __('menu.contact') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        <a href="#" class="nav-link dropdown-toggle"
+                            data-toggle="dropdown">{{ __('menu.userAccount') }}</a>
                         <div class="dropdown-menu">
-                            <a href="{{ route('login') }}" class="dropdown-item">Login</a>
-                            <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
+                            <a href="{{ route('register') }}" class="dropdown-item">{{ __('menu.register') }}</a>
+                            @auth
+                                <a href="{{ route('logout') }}" class="dropdown-item">{{ __('menu.logout') }}</a>
+                            @else
+                                <a href="{{ route('login') }}" class="dropdown-item">{{ __('menu.login') }}</a>
+                            @endauth
                         </div>
                     </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle"
+                            data-toggle="dropdown">{{ __('menu.languages') }}</a>
+                        <div class="dropdown-menu">
+                            <a href="{{ route('selectLang', 'vi') }}" class="dropdown-item">VI</a>
+                            <a href="{{ route('selectLang', 'en') }}" class="dropdown-item">EN</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </nav>
@@ -66,7 +83,7 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="{{ route('home') }}">
                         <img src="{{ asset('front/img/logo.png') }}" alt="Logo">
                     </a>
                 </div>
@@ -85,7 +102,7 @@
                     </a>
                     <a href="{{ route('cart') }}" class="btn cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span>(0)</span>
+                        <span>({{ $collection->count() }})</span>
                     </a>
                 </div>
             </div>

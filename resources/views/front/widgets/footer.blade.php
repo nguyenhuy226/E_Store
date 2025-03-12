@@ -4,7 +4,7 @@
          <div class="row">
              <div class="col-lg-3 col-md-6">
                  <div class="footer-widget">
-                     <h2>Get in Touch</h2>
+                     <h2>{{ __('footer.getInTouch') }}</h2>
                      <div class="contact-info">
                          <p><i class="fa fa-map-marker"></i>123 E Store, Los Angeles, USA</p>
                          <p><i class="fa fa-envelope"></i>email@example.com</p>
@@ -15,7 +15,7 @@
 
              <div class="col-lg-3 col-md-6">
                  <div class="footer-widget">
-                     <h2>Follow Us</h2>
+                     <h2>{{ __('footer.followUs') }}</h2>
                      <div class="contact-info">
                          <div class="social">
                              <a href=""><i class="fab fa-twitter"></i></a>
@@ -30,22 +30,22 @@
 
              <div class="col-lg-3 col-md-6">
                  <div class="footer-widget">
-                     <h2>Company Info</h2>
+                     <h2>{{ __('footer.companyInfo') }}</h2>
                      <ul>
-                         <li><a href="#">About Us</a></li>
-                         <li><a href="#">Privacy Policy</a></li>
-                         <li><a href="#">Terms & Condition</a></li>
+                         <li><a href="#">{{ __('footer.aboutUs') }}</a></li>
+                         <li><a href="#">{{ __('policy.privacy') }}</a></li>
+                         <li><a href="#">{{ __('footer.term&condition') }}</a></li>
                      </ul>
                  </div>
              </div>
 
              <div class="col-lg-3 col-md-6">
                  <div class="footer-widget">
-                     <h2>Purchase Info</h2>
+                     <h2>{{ __('footer.purchaseInfo') }}</h2>
                      <ul>
-                         <li><a href="#">Pyament Policy</a></li>
-                         <li><a href="#">Shipping Policy</a></li>
-                         <li><a href="#">Return Policy</a></li>
+                         <li><a href="#">{{ __('policy.payment') }}</a></li>
+                         <li><a href="#">{{ __('policy.shipping') }}</a></li>
+                         <li><a href="#">{{ __('footer.return') }}</a></li>
                      </ul>
                  </div>
              </div>
@@ -73,12 +73,12 @@
      <div class="container">
          <div class="row">
              <div class="col-md-6 copyright">
-                 <p>Copyright &copy; <a href="#">Your Site Name</a>. All Rights Reserved</p>
+                 <p>Copyright &copy; <a href="#">PHP Nguyen Huy</a>. All Rights Reserved</p>
              </div>
 
              <div class="col-md-6 template-by">
                  <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                 <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+                 <p>Designed By <a href="#">PHP</a></p>
              </div>
          </div>
      </div>

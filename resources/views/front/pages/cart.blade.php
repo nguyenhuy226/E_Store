@@ -5,9 +5,9 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('products') }}">Products</a></li>
-                <li class="breadcrumb-item active">Cart</li>
+                <li class="breadcrumb-item"><a href="/">{{ __('menu.home') }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('products') }}">{{ __('menu.product') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('menu.cart') }}</li>
             </ul>
         </div>
     </div>
@@ -24,7 +24,8 @@
                             alt=""><br>
                         <div class="cart-summary ">
                             <div class="cart-btn">
-                                <button class="w-25 m-0 px-5"><a href="{{ route('products') }}">Mua hàng tiếp</a></button>
+                                <button class="w-25 m-0 px-5"><a
+                                        href="{{ route('products') }}">{{ __('cart.continueShopping') }}</a></button>
                             </div>
                         </div>
                     </div>
@@ -43,11 +44,11 @@
                                     <table class="table table-bordered">
                                         <thead class="thead-dark">
                                             <tr>
-                                                <th>Product</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>Total</th>
-                                                <th>Remove</th>
+                                                <th>{{ __('cart.product') }}</th>
+                                                <th>{{ __('cart.price') }}</th>
+                                                <th>{{ __('cart.quantity') }}</th>
+                                                <th>{{ __('cart.total') }}</th>
+                                                <th>{{ __('cart.remove') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody class="align-middle">
@@ -95,7 +96,8 @@
 
                         <div class="cart-summary mb-4">
                             <div class="cart-btn d-flex justify-content-end">
-                                <a href="{{ route('products') }}"> <button class="w-100">Mua hàng tiếp</button></a>
+                                <a href="{{ route('products') }}"> <button
+                                        class="w-100">{{ __('cart.continueShopping') }}</button></a>
                             </div>
                         </div>
                     </div>
@@ -117,16 +119,18 @@
                                                 });
                                                 $vat = $subtotal * 0.1;
                                             @endphp
-                                            <h1>Cart Summary</h1>
-                                            <p>Sub Total<span>{{ number_format($subtotal) }}</span></p>
+                                            <h1>{{ __('cart.summary') }}</h1>
+                                            <p>{{ __('cart.sub') }}<span>{{ number_format($subtotal) }}</span></p>
                                             <p>VAT(10%)<span>{{ number_format($vat) }}</span></p>
-                                            <h2>Grand Total<span>{{ number_format($subtotal + $vat) }}</span></h2>
+                                            <h2>{{ __('cart.grand') }}<span>{{ number_format($subtotal + $vat) }}</span>
+                                            </h2>
                                         </div>
                                         <div class="cart-btn">
-                                            <a onclick="document.getElementById('cart_form').submit()"> <button>Update
-                                                    cart</button></a>
+                                            <a onclick="document.getElementById('cart_form').submit()">
+                                                <button>{{ __('cart.update') }}
+                                                </button></a>
                                             <button><a href="{{ route('checkout') }}"
-                                                    class="text-white">Checkout</a></button>
+                                                    class="text-white">{{ __('cart.checkout') }}</a></button>
                                         </div>
                                     </div>
                                 </div>

@@ -5,44 +5,46 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Products</a></li>
-                <li class="breadcrumb-item active">My Account</li>
+                <li class="breadcrumb-item"><a href="#">{{ __('menu.home') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('menu.myaccount') }}</li>
             </ul>
         </div>
     </div>
     <!-- Breadcrumb End -->
 
     <!-- My Account Start -->
+    @if (session('update') || session('current_password'))
+        <div class="alert alert-success">
+            {{ session('update') }}
+            {{ session('current_password') }}
+        </div>
+    @endif
     <div class="my-account">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
                     <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab"
-                            role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                            role="tab"><i class="fa fa-tachometer-alt"></i>{{ __('account.dashboard') }}</a>
                         <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i
-                                class="fa fa-shopping-bag"></i>Orders</a>
+                                class="fa fa-shopping-bag"></i>{{ __('account.orders') }}</a>
                         <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i
-                                class="fa fa-credit-card"></i>Payment Method</a>
+                                class="fa fa-credit-card"></i>{{ __('account.paymentmethod') }}</a>
                         <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i
-                                class="fa fa-map-marker-alt"></i>address</a>
+                                class="fa fa-map-marker-alt"></i>{{ __('account.address') }}</a>
                         <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i
-                                class="fa fa-user"></i>Account Details</a>
-                        <a class="nav-link" href="index.html"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                                class="fa fa-user"></i>{{ __('acccount.details') }}</a>
+                        <a class="nav-link" href="{{ route('logout') }}"><i
+                                class="fa fa-sign-out-alt"></i>{{ __('account.logout') }}</a>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel"
                             aria-labelledby="dashboard-nav">
-                            <h4>Dashboard</h4>
+                            <h4>{{ __('account.dashboard') }}</h4>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra
-                                dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit
-                                finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in
-                                faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu
-                                rhoncus scelerisque.
+                                Hello {{ auth()->user()->name }}
                             </p>
                         </div>
                         <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
@@ -51,107 +53,144 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>No</th>
-                                            <th>Product</th>
-                                            <th>Date</th>
-                                            <th>Price</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>{{ __('account.code') }}</th>
+                                            <th>{{ __('account.date') }}</th>
+                                            <th>{{ __('account.price') }}</th>
+                                            <th>{{ __('account.status') }}</th>
+                                            <th>{{ __('account.action') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Product Name</td>
-                                            <td>01 Jan 2020</td>
-                                            <td>$99</td>
-                                            <td>Approved</td>
-                                            <td><button class="btn">View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Product Name</td>
-                                            <td>01 Jan 2020</td>
-                                            <td>$99</td>
-                                            <td>Approved</td>
-                                            <td><button class="btn">View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Product Name</td>
-                                            <td>01 Jan 2020</td>
-                                            <td>$99</td>
-                                            <td>Approved</td>
-                                            <td><button class="btn">View</button></td>
-                                        </tr>
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach (auth()->user()->orders as $order)
+                                            {{ $i += 1 }}
+                                            <tr>
+                                                <td>{{ $i }}</td>
+                                                <td>{{ $order->code }}</td>
+                                                <td>{{ $order->created_date }}</td>
+                                                <td>{{ $order->total_amount }}</td>
+                                                <td>{{ $order->status_label }}</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
-                            <h4>Payment Method</h4>
+                            <h4>{{ __('account.paymentmethod') }}</h4>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra
-                                dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit
-                                finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in
-                                faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu
-                                rhoncus scelerisque.
+                                THANH TOÁN KHI NHẬN HÀNG
                             </p>
                         </div>
                         <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
-                            <h4>Address</h4>
+                            <h4>{{ __('account.address') }}</h4>
                             <div class="row">
                                 <div class="col-md-6">
                                     <h5>Payment Address</h5>
-                                    <p>123 Payment Street, Los Angeles, CA</p>
-                                    <p>Mobile: 012-345-6789</p>
-                                    <button class="btn">Edit Address</button>
+                                    <p>
+                                        @if (auth()->user()->address)
+                                            {{ auth()->user()->address }}
+                                        @else
+                                            không có
+                                        @endif
+                                    </p>
+                                    <p>Mobile: {{ auth()->user()->phone }}</p>
+                                    <button class="btn">{{ __('account.editAddress') }}</button>
                                 </div>
                                 <div class="col-md-6">
                                     <h5>Shipping Address</h5>
-                                    <p>123 Shipping Street, Los Angeles, CA</p>
-                                    <p>Mobile: 012-345-6789</p>
-                                    <button class="btn">Edit Address</button>
+                                    <p>
+                                        @if (auth()->user()->ship_address)
+                                            {{ auth()->user()->ship_address }}
+                                        @else
+                                            không có
+                                        @endif
+                                    </p>
+                                    <p>Mobile: @if (auth()->user()->ship_phone)
+                                            {{ auth()->user()->ship_phone }}
+                                        @else
+                                            không có
+                                        @endif
+                                    </p>
+                                    <button class="btn">{{ __('account.editAddress') }}</button>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
-                            <h4>Account Details</h4>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="First Name">
+                            <h4>{{ __('acccount.details') }}</h4>
+                            <form action="{{ route('update-account') }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="{{ __('contact.name') }}"
+                                            value=" {{ auth()->user()->name }}" name="name">
+                                        @error('name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="{{ __('checkout.phone') }}"
+                                            value=" {{ auth()->user()->phone }}" name="phone">
+                                        @error('phone')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="{{ __('contact.email') }}"
+                                            value=" {{ auth()->user()->email }}" name="email">
+                                        @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text"
+                                            placeholder="{{ __('account.address') }}"
+                                            value=" {{ auth()->user()->address }}" name="address">
+                                        @error('address')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn">{{ __('account.update') }}</button>
+                                        <br><br>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Last Name">
+                            </form>
+                            <h4>{{ __('account.changepassword') }}</h4>
+                            <form action="{{ route('change-password') }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input class="form-control" type="password"
+                                            placeholder="{{ __('account.currentpassword') }}" name="password">
+                                        @error('password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text"
+                                            placeholder="{{ __('account.newpassword') }}" name="new_password">
+                                        @error('new_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text"
+                                            placeholder="{{ __('account.confirm') }}" name="newpassword_confirmation">
+                                        @error('newpassword_confirmation')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn">{{ __('account.save') }}</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Mobile">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Email">
-                                </div>
-                                <div class="col-md-12">
-                                    <input class="form-control" type="text" placeholder="Address">
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn">Update Account</button>
-                                    <br><br>
-                                </div>
-                            </div>
-                            <h4>Password change</h4>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input class="form-control" type="password" placeholder="Current Password">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="New Password">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Confirm Password">
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn">Save Changes</button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

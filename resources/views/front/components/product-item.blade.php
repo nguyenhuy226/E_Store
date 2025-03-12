@@ -1,6 +1,6 @@
 <div class="product-item">
     <div class="product-title">
-        <a href="{{ route('product-detail', ['id' => $product->id]) }}">{{ $product->product_name }}</a>
+        <a href="{{ route('product-detail', ['id' => $product->id]) }}">{{ $product->name }}</a>
         <div class="ratting">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
